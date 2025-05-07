@@ -8,24 +8,23 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-  <h1 class="h3 mb-1 text-gray-800">Cadastrar Marca</h1>
+  <h1 class="h3 mb-1 text-gray-800">Editar Marca</h1>
   <p class="mb-4">
-    Preencha os campos abaixo para cadastrar uma nova marca no sistema.
-    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Essa marca será exibida na listagens."></i>
+    Altere os campos abaixo para atualizar a marca selecionada.
+    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Altere o nome ou a descrição da marca."></i>
   </p>
 
   <div class="card shadow mb-4">
     <div class="card-body">
-      <form method="post" action="{% url 'brand_create' %}">
+      <form method="POST" action="{% url 'brand_update' brand.pk %}">
         {% csrf_token %}
-        
         {{ form.as_p }}
-  
-        <button type="submit" class="btn btn-sm btn-primary btn-icon-split shadow-sm">
+
+        <button type="submit" class="btn btn-sm btn-warning btn-icon-split shadow-sm">
           <span class="icon text-white-50">
-            <i class="fas fa-save mr-1"></i>
+            <i class="fas fa-edit mr-1"></i>
           </span>
-          <span class="text">Cadastrar</span>
+          <span class="text">Atualizar</span>
         </button>
 
         <a href="{% url 'brand_list' %}" class="btn btn-sm btn-secondary btn-icon-split shadow-sm">
@@ -34,9 +33,7 @@
           </span>
           <span class="text">Voltar</span>
         </a>
-
       </form>
     </div>
-  </div>
 </div>
 {% endblock %}
