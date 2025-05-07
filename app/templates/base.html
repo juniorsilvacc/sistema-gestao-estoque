@@ -32,6 +32,8 @@
       rel="stylesheet"
       type="text/css"
     />
+
+    {% block extra_css %}{% endblock %}
   </head>
   <body id="page-top">
 
@@ -88,6 +90,8 @@
         $('[data-toggle="tooltip"]').tooltip()
       });
     </script>
+
+    {% block extra_js %} {% endblock %}
     
   </body>
 </html>

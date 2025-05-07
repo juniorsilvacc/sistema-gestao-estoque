@@ -1,8 +1,13 @@
 {% extends 'base.html' %} 
+{% load static %}
 
 {% block title %} 
   SGE - Marcas 
 {% endblock %} 
+
+{% block extra_css %}
+  <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 <!-- Begin Page Content -->
@@ -14,8 +19,8 @@
   <div class="card shadow mb-4">
 
     <div class="card-header py-3">
-      <div class="d-flex justify-content-between align-items-center">
-        <form
+      <div class="d-flex justify-content-start align-items-center">
+        <!-- <form
           class="form-inline"
           action="{% url 'brand_list' %}" 
           method="GET"
@@ -34,7 +39,7 @@
               </button>
             </div>
           </div>
-        </form>
+        </form> -->
 
         <a href="{% url 'brand_create' %}" class="btn btn-success btn-sm">
           <i class="fas fa-plus-circle mr-1"></i> Nova Marca
@@ -82,11 +87,6 @@
                   >
                     <i class="fas fa-trash"></i>
                   </button>
-                  <!-- <form method="post" action="{% url 'brand_delete' brand.pk %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-circle btn-sm">
-                      <i class="fas fa-trash"></i>
-                    </button> -->
                   </form>
                 </div>
               </td>
@@ -133,4 +133,13 @@
     });
   });
 </script>
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
 {% endblock %}
