@@ -135,6 +135,21 @@
 </script>
 
 {% block extra_js %}
+  <!-- Script para DataTable e tradução -->
+  <script>
+    $(document).ready(function() {
+      $('#dataTable').DataTable({
+        language: {
+          url: "{% static 'vendor/datatables/i18n/pt-BR.json' %}"
+        },
+        retrieve: true,
+        initComplete: function(settings, json) {
+          console.log('Tabela carregada com sucesso', json);
+        }
+      });
+    });
+  </script>
+
   <!-- Page level plugins -->
   <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
@@ -142,4 +157,5 @@
   <!-- Page level custom scripts -->
   <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
 {% endblock %}
+
 {% endblock %}
