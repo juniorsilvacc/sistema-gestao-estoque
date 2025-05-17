@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+  SGE - Categoria 
+{% endblock %} 
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-1 text-gray-800">Editar Categoria</h1>
+  <p class="mb-4">
+    Altere os campos abaixo para atualizar a categoria selecionada.
+    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Altere o nome ou a descrição da categoria."></i>
+  </p>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <form method="POST" action="{% url 'category_update' category.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-sm btn-warning btn-icon-split shadow-sm">
+          <span class="icon text-white-50">
+            <i class="fas fa-edit mr-1"></i>
+          </span>
+          <span class="text">Atualizar</span>
+        </button>
+
+        <a href="{% url 'category_list' %}" class="btn btn-sm btn-secondary btn-icon-split shadow-sm">
+          <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+          </span>
+          <span class="text">Voltar</span>
+        </a>
+      </form>
+    </div>
+</div>
+{% endblock %}
