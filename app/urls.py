@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
+from app.views import custom_500
+from app.views import custom_404
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    
     path('', include('brands.urls')),
     path('', include('categories.urls')),
     path('', include('suppliers.urls')),
@@ -12,3 +14,6 @@ urlpatterns = [
     path('', include('outflows.urls')),
     path('', include('products.urls')),
 ]
+
+handler500 = custom_500
+handler404 = custom_404

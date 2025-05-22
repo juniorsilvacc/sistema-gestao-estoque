@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Página não encontrada</title>
+    <style>
+        body {
+            background-color: #f8f9fc;
+            color: #5a5c69;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 100px;
+        }
+        .error {
+            font-size: 120px;
+            font-weight: 800;
+            color: #e74a3b;
+        }
+        .message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .subtext {
+            font-size: 16px;
+            color: #858796;
+        }
+        a.btn {
+            display: inline-block;
+            margin-top: 30px;
+            background-color: #4e73df;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a.btn:hover {
+            background-color: #2e59d9;
+        }
+    </style>
+</head>
+<body>
+    <div class="error" data-text="404">404</div>
+    <div class="message">Página não encontrada</div>
+    <p class="subtext">Parece que você se perdeu pelo caminho... 😅</p>
+    <a href="{% url 'product_list' %}" class="btn">Voltar para a página inicial</a>
+</body>
+</html>
