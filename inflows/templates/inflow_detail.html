@@ -1,0 +1,63 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+  SGE - Entrada 
+{% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-1 text-gray-800">Detalhes da Entrada</h1>
+  <p class="mb-4">
+    Visualize abaixo os dados da entrada cadastrada.
+    <i
+      class="fas fa-info-circle text-info"
+      data-toggle="tooltip"
+      title="Esses dados não podem ser editados."
+    ></i>
+  </p>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">{{ inflow.id }}</dd>
+
+        <dt class="col-sm-3">Fornecedor</dt>
+        <dd class="col-sm-9">{{ inflow.supplier }}</dd>
+
+        <dt class="col-sm-3">Produto</dt>
+        <dd class="col-sm-9">{{ inflow.product }}</dd>
+
+        <dt class="col-sm-3">Quantidade</dt>
+        <dd class="col-sm-9">{{ inflow.quantity }}</dd>
+
+        <dt class="col-sm-3">Descrição</dt>
+        <dd class="col-sm-9">
+          {% if inflow.description %} 
+            {{ inflow.description }} 
+          {% else %}
+            <span class="text-muted">
+              <i class="fas fa-exclamation-circle"></i> Sem descrição disponível.
+            </span>
+          {% endif %}
+        </dd>
+
+        <dt class="col-sm-3">Data de Entrada</dt>
+        <dd class="col-sm-9">{{ inflow.created_at|date:"d/m/Y H:i" }}</dd>
+      </dl>
+
+      <a
+        href="{% url 'inflow_list' %}"
+        class="btn btn-sm btn-secondary btn-icon-split shadow-sm"
+      >
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Voltar</span>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
