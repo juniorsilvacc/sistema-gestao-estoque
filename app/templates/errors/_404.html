@@ -1,0 +1,16 @@
+{% extends "error_base.html" %}
+
+{% block title %}
+    404 - Página não encontrada
+{% endblock %}
+
+{% block error_code %}404{% endblock %}
+{% block message %}
+    Página não encontrada
+{% endblock %}
+{% block subtext %}
+    Parece que você se perdeu pelo caminho... 😅
+{% endblock %}
+
+{% block button_url %}{% url 'home' %}{% endblock %}
+{% block button_text %}Voltar para a página inicial{% endblock %}

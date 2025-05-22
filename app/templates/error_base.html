@@ -1,10 +1,8 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>500 - Error de Servidor</title>
+    <title>{% block title %}{% endblock %}</title>
     <style>
         body {
             background-color: #f8f9fc;
@@ -41,8 +39,16 @@
     </style>
 </head>
 <body>
-    <div class="error" data-text="500">500</div>
-    <div class="message">Algo deu errado no servidor.</div>
-    <p class="subtext">Nossa equipe já está trabalhando para corrigir isso...</p>
+    
+    <div class="error">
+        {% block error_code %}{% endblock %}
+    </div>
+    <div class="message">{% block message %}{% endblock %}</div>
+    <p class="subtext">{% block subtext %}{% endblock %}</p>
+    {% block button %}
+        <a href="{% block button_url %}{% endblock %}" class="btn">
+            {% block button_text %}{% endblock %}
+        </a>
+    {% endblock %}
 </body>
 </html>
