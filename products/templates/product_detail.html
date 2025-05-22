@@ -38,8 +38,8 @@
           {% if product.description %} 
             {{ product.description }} 
           {% else %}
-            <span class="text-muted">
-              <i class="fas fa-exclamation-circle"></i> Sem descrição disponível.
+            <span class="text-muted font-weight-bold">
+              Sem descrição disponível
             </span>
           {% endif %}
         </dd>
@@ -48,10 +48,21 @@
         <dd class="col-sm-9">{{ product.serie_number }}</dd>
 
         <dt class="col-sm-3">Preço de Custo</dt>
-        <dd class="col-sm-9">{{ product.cost_price }}</dd>
+        <dd class="col-sm-9">R$ {{ product.cost_price }}</dd>
 
         <dt class="col-sm-3">Preço de Venda</dt>
-        <dd class="col-sm-9">{{ product.selling_price }}</dd>
+        <dd class="col-sm-9">R$ {{ product.selling_price }}</dd>
+
+        <dt class="col-sm-3">Quantidade</dt>
+        <dd class="col-sm-9">
+          {% if product.quantity == 0 %}
+            <span class="text-danger font-weight-bold">Sem estoque</span>
+          {% elif product.quantity < 3 %}
+            <span class="text-warning font-weight-bold">Estoque baixo ({{ product.quantity }})</span>
+          {% else %}
+            {{ product.quantity }}
+          {% endif %}
+        </dd>
       </dl>
 
       <a
