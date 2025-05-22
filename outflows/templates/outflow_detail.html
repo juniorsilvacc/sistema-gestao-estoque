@@ -1,0 +1,60 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+  SGE - Saída 
+{% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-1 text-gray-800">Detalhes da Saída</h1>
+  <p class="mb-4">
+    Visualize abaixo os dados da saída cadastrada.
+    <i
+      class="fas fa-info-circle text-info"
+      data-toggle="tooltip"
+      title="Esses dados não podem ser editados."
+    ></i>
+  </p>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">{{ outflow.id }}</dd>
+
+        <dt class="col-sm-3">Produto</dt>
+        <dd class="col-sm-9">{{ outflow.product }}</dd>
+
+        <dt class="col-sm-3">Quantidade</dt>
+        <dd class="col-sm-9">{{ outflow.quantity }}</dd>
+
+        <dt class="col-sm-3">Descrição</dt>
+        <dd class="col-sm-9">
+          {% if outflow.description %} 
+            {{ outflow.description }} 
+          {% else %}
+            <span class="text-muted">
+              <i class="fas fa-exclamation-circle"></i> Sem descrição disponível.
+            </span>
+          {% endif %}
+        </dd>
+
+        <dt class="col-sm-3">Data da Saída</dt>
+        <dd class="col-sm-9">{{ outflow.created_at|date:"d/m/Y H:i" }}</dd>
+      </dl>
+
+      <a
+        href="{% url 'outflow_list' %}"
+        class="btn btn-sm btn-secondary btn-icon-split shadow-sm"
+      >
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Voltar</span>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

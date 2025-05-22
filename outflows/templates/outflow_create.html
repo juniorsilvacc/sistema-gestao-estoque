@@ -1,22 +1,22 @@
 {% extends 'base.html' %} 
 
 {% block title %} 
-  SGE - Entrada
+  SGE - Saída
 {% endblock %} 
 
 {% block content %}
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-  <h1 class="h3 mb-1 text-gray-800">Cadastrar Entrada</h1>
+  <h1 class="h3 mb-1 text-gray-800">Cadastrar Saída</h1>
   <p class="mb-4">
-    Preencha os campos abaixo para cadastrar uma nova entrada de produtos no sistema.
-    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Essa entrada será exibida na listagem."></i>
+    Preencha os campos abaixo para cadastrar uma nova saída de produtos no sistema.
+    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Essa saída será exibida na listagem."></i>
   </p>
 
   <div class="card shadow mb-4">
     <div class="card-body">
-      <form method="post" action="{% url 'inflow_create' %}">
+      <form method="post" action="{% url 'outflow_create' %}">
         {% csrf_token %}
         
         {{ form.as_p }}
@@ -28,7 +28,7 @@
           <span class="text">Cadastrar</span>
         </button>
 
-        <a href="{% url 'inflow_list' %}" class="btn btn-sm btn-secondary btn-icon-split shadow-sm">
+        <a href="{% url 'outflow_list' %}" class="btn btn-sm btn-secondary btn-icon-split shadow-sm">
           <span class="icon text-white-50">
             <i class="fas fa-arrow-left"></i>
           </span>
