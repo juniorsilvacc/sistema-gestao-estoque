@@ -20,8 +20,8 @@ class OutflowForm(forms.ModelForm):
         }
     
     def clean_quantity(self):
-        quantity = self.clean_quantity.get('quantity')
-        product = self.cleaned_data.get('quantity')
+        quantity = self.cleaned_data.get('quantity')
+        product = self.cleaned_data.get('product')
 
         if quantity > product.quantity:
             raise ValidationError(
