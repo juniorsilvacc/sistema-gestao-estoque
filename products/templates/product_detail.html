@@ -1,0 +1,69 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+  SGE - Produto 
+{% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-1 text-gray-800">Detalhes de Produto</h1>
+  <p class="mb-4">
+    Visualize abaixo os dados do produto cadastrado.
+    <i
+      class="fas fa-info-circle text-info"
+      data-toggle="tooltip"
+      title="Esses dados não podem ser editados aqui."
+    ></i>
+  </p>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">{{ product.id }}</dd>
+
+        <dt class="col-sm-3">Título</dt>
+        <dd class="col-sm-9">{{ product.title }}</dd>
+
+        <dt class="col-sm-3">Categoria</dt>
+        <dd class="col-sm-9">{{ product.category }}</dd>
+
+        <dt class="col-sm-3">Marca</dt>
+        <dd class="col-sm-9">{{ product.brand }}</dd>
+
+        <dt class="col-sm-3">Descrição</dt>
+        <dd class="col-sm-9">
+          {% if product.description %} 
+            {{ product.description }} 
+          {% else %}
+            <span class="text-muted">
+              <i class="fas fa-exclamation-circle"></i> Sem descrição disponível.
+            </span>
+          {% endif %}
+        </dd>
+
+        <dt class="col-sm-3">Número de Série</dt>
+        <dd class="col-sm-9">{{ product.serie_number }}</dd>
+
+        <dt class="col-sm-3">Preço de Custo</dt>
+        <dd class="col-sm-9">{{ product.cost_price }}</dd>
+
+        <dt class="col-sm-3">Preço de Venda</dt>
+        <dd class="col-sm-9">{{ product.selling_price }}</dd>
+      </dl>
+
+      <a
+        href="{% url 'product_list' %}"
+        class="btn btn-sm btn-secondary btn-icon-split shadow-sm"
+      >
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Voltar</span>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

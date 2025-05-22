@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+  SGE - Produto
+{% endblock %} 
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-1 text-gray-800">Editar Produto</h1>
+  <p class="mb-4">
+    Altere os campos abaixo para atualizar o produto selecionado.
+    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Faça alterações dos dados."></i>
+  </p>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <form method="POST" action="{% url 'product_update' product.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-sm btn-warning btn-icon-split shadow-sm">
+          <span class="icon text-white-50">
+            <i class="fas fa-edit mr-1"></i>
+          </span>
+          <span class="text">Atualizar</span>
+        </button>
+
+        <a href="{% url 'product_list' %}" class="btn btn-sm btn-secondary btn-icon-split shadow-sm">
+          <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+          </span>
+          <span class="text">Voltar</span>
+        </a>
+      </form>
+    </div>
+</div>
+{% endblock %}

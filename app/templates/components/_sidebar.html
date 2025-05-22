@@ -42,8 +42,8 @@
     <div id="collapseProdutos" class="collapse" aria-labelledby="headingProdutos" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Custom Utilities:</h6>
-        <a class="collapse-item" href="#">Listar</a>
-        <a class="collapse-item" href="#">Novo Produto</a>
+        <a class="collapse-item" href="{% url 'product_list' %}">Listar</a>
+        <a class="collapse-item" href="{% url 'product_create' %}">Novo Produto</a>
       </div>
     </div>
   </li>

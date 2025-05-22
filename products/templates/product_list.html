@@ -1,0 +1,167 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block title %} 
+  SGE - Produto
+{% endblock %} 
+
+{% block extra_css %}
+  <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-1 text-gray-800">Produtos</h1>
+  <p class="mb-4">Gerencie os produtos cadastrados e mantenha sempre atualizados.</p>
+
+  <div class="card shadow mb-4">
+
+    <div class="card-header py-3">
+      <div class="d-flex justify-content-start align-items-center">
+        <!-- <form
+          class="form-inline"
+          action="{% url 'brand_list' %}" 
+          method="GET"
+        >
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control border small"
+              placeholder="Pesquisar..."
+              name="name"
+              value="{{ request.GET.name }}"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+            </div>
+          </div>
+        </form> -->
+
+        <a href="{% url 'product_create' %}" class="btn btn-success btn-sm">
+          <i class="fas fa-plus-circle mr-1"></i> Novo Produto
+        </a>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table
+          class="table table-bordered"
+          id="dataTable"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Categoria</th>
+              <th>Marca</th>
+              <th>Número de Série</th>
+              <th>Preço de Custo</th>
+              <th>Preço de Venda</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in products %}
+            <tr>
+              <td>{{ product.title }}</td>
+              <td>{{ product.category }}</td>
+              <td>{{ product.brand }}</td>
+              <td>{{ product.serie_number }}</td>
+              <td>{{ product.cost_price }}</td>
+              <td>{{ product.selling_price }}</td>
+              <td>
+                <div class="d-flex gap-1">
+                  <a href="{% url 'product_detail' product.pk %}" class="btn btn-info btn-circle btn-sm d-flex align-items-center justify-content-center">
+                    <i class="fas fa-eye"></i>
+                  </a>
+
+                  <a href="{% url 'product_update' product.pk %}" class="btn btn-warning btn-circle btn-sm d-flex align-items-center justify-content-center">
+                    <i class="fas fa-edit"></i>
+                  </a>
+
+                  <button 
+                    class="btn btn-danger btn-circle btn-sm d-flex align-items-center justify-content-center"
+                    data-toggle="modal"
+                    data-target="#deleteModal"
+                    data-id="{{ product.id }}"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirmação de Exclusão</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja excluir esse produto? Esta ação não pode ser desfeita.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <form method="post" id="deleteForm" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    $('#deleteModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget); // botão que abriu o modal
+      var productId = button.data('id');     // pega o ID da marca
+      var actionUrl = '/products/' + productId + '/delete/';
+      $('#deleteForm').attr('action', actionUrl); // seta a action do form
+    });
+  });
+</script>
+
+{% block extra_js %}
+  <!-- Script para DataTable e tradução -->
+  <script>
+    $(document).ready(function() {
+      $('#dataTable').DataTable({
+        language: {
+          url: "{% static 'vendor/datatables/i18n/pt-BR.json' %}"
+        },
+        retrieve: true,
+        initComplete: function(settings, json) {
+          console.log('Tabela carregada com sucesso', json);
+        }
+      });
+    });
+  </script>
+
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
+
+{% endblock %}
