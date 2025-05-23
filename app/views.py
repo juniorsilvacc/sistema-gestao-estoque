@@ -10,9 +10,11 @@ def custom_404(request, exception=None):
 
 def home(request):
     product_metrics = metrics.get_product_metrics()
+    sales_metrics = metrics.get_sales_metrics()
 
     context = {
-        'product_metrics': product_metrics
+        'product_metrics': product_metrics,
+        'sales_metrics': sales_metrics
     }
 
     return render(request, 'pages/home.html', context)
