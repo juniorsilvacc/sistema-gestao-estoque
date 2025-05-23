@@ -1,5 +1,6 @@
 {% extends 'base.html' %} 
 {% load static %}
+{% load format_extras %}
 
 {% block title %} 
   SGE - Produto
@@ -76,8 +77,8 @@
               <td>{{ product.category }}</td>
               <td>{{ product.brand }}</td>
               <td>{{ product.serie_number }}</td>
-              <td>R$ {{ product.cost_price }}</td>
-              <td>R$ {{ product.selling_price }}</td>
+              <td>{{ product.cost_price|moeda }}</td>
+              <td>{{ product.selling_price|moeda }}</td>
               <td>
                 {% if product.quantity == 0 %}
                   <span class="text-danger font-weight-bold">Sem estoque</span>
