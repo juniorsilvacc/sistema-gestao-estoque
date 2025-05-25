@@ -6,7 +6,7 @@
       href="#"
       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
     >
-      <i class="fas fa-download fa-sm text-white-50"></i> Relatório
+      <i class="fas fa-download fa-sm text-white-50"></i> Exportar
     </a>
   </div>
 
@@ -19,7 +19,7 @@
               <div
                 class="text-xs font-weight-bold text-primary text-uppercase mb-1"
               >
-                Quantidade de Produtos
+                Produtos no Estoque
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
                 {{ product_metrics.quantity_product }}
@@ -41,7 +41,7 @@
               <div
                 class="text-xs font-weight-bold text-primary text-uppercase mb-1"
               >
-                Custo de Estoque
+                Custo do Estoque
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
                 R$ {{ product_metrics.total_cost_price }}
@@ -63,7 +63,7 @@
               <div
                 class="text-xs font-weight-bold text-primary text-uppercase mb-1"
               >
-                Valor de Estoque
+                Valor Comercial do Estoque
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
                 R$ {{ product_metrics.total_selling_price }}
@@ -85,7 +85,7 @@
               <div
                 class="text-xs font-weight-bold text-primary text-uppercase mb-1"
               >
-                Lucro de Estoque
+                Lucro Estimado no Estoque
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
                 R$ {{ product_metrics.total_profit }}

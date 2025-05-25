@@ -9,5 +9,120 @@
   {% include 'components/_product_metrics.html' %}
   {% include 'components/_sales_metrics.html' %}
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <div class="container-fluid mb-4">
+    <div class="row">
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-6 text-center">
+          <h1 class="h5 mb-0 text-gray-800">Movimentações nos últimos 7 dias 🗓️</h1>
+          <canvas id="dailySalesChart"></canvas>
+        </div>
+
+        <div class="col-md-6 text-center">
+          <h1 class="h5 mb-0 text-gray-800">Saídas diárias 📈</h1>
+          <canvas id="dailySalesQuantityChart"></canvas>
+        </div>
+      </div>
+
+      <div class="col-md-6 text-center mt-4">
+        <h1 class="h5 mb-0 text-gray-800">Estoque Atual por Produto 🏷️</h1>
+        <canvas id="topStockChart"></canvas>
+      </div>
+
+      <div class="col-md-6 text-center mt-4">
+        <h1 class="h5 mb-0 text-gray-800">Top 5 Produtos Mais Vendidos 🛒</h1>
+        <canvas id="topSoldChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const dailySalesData = JSON.parse('{{ daily_sales_data|safe }}')
+      const dailySalesQuantityData = JSON.parse('{{ daily_sales_quantity_data|safe }}')
+      const stockData = JSON.parse('{{ top_10_stock|safe }}')
+      const soldData = JSON.parse('{{ top_5_sold|safe }}')
+
+
+      // Gráfico de valor de vendas
+      new Chart(document.getElementById('dailySalesChart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: dailySalesData.dates,
+          datasets: [{
+            label: 'Valor das Vendas (R$)',
+            data: dailySalesData.values,
+            borderColor: '#4e73df',
+            backgroundColor: 'rgba(78, 115, 223, 0.1)',
+            tension: 0.4,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: false
+            }
+          }
+        }
+      })
+
+      // Gráfico de quantidade de vendas
+      new Chart(document.getElementById('dailySalesQuantityChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: dailySalesQuantityData.dates,
+          datasets: [{
+            label: 'Quantidade de Produtos Vendidos',
+            data: dailySalesQuantityData.values,
+            borderColor: '#1cc88a',
+            backgroundColor: 'rgba(28, 200, 138, 0.1)',
+            tension: 0.4,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: false
+            }
+          }
+        }
+      })
+
+      new Chart(document.getElementById('topStockChart'), {
+        type: 'bar',
+        data: {
+          labels: stockData.labels,
+          datasets: [{
+            label: 'Estoque',
+            data: stockData.data,
+            backgroundColor: 'rgba(54, 162, 235, 0.7)'
+          }]
+        }
+      })
+
+      new Chart(document.getElementById('topSoldChart'), {
+        type: 'bar',
+        data: {
+          labels: soldData.labels,
+          datasets: [{
+            label: 'Vendidos',
+            data: soldData.data,
+            backgroundColor: 'rgba(255, 99, 132, 0.7)'
+          }]
+        }
+      })
+    })
+  </script>
+
+  
 {% endblock %}
