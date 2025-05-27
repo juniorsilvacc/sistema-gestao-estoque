@@ -1,71 +1,54 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %} 
-  Login 
-{% endblock %} 
+{% block title %}
+  Login
+{% endblock %}
 
 {% block content %}
-<div class="container">
-  <!-- Outer Row -->
-  <div class="row justify-content-center">
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center min-vh-100">
     <div class="col-xl-10 col-lg-12 col-md-9">
-      <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card o-hidden border-0 shadow-lg">
         <div class="card-body p-0">
-          <!-- Nested Row within Card Body -->
           <div class="row">
-            <div class="col-lg-6 d-none d-lg-block bg-login-image">
-              <img src="{% static 'img/estoque.jpg' %}" alt="Imagem de controle de estoque" class="img-fluid">
+            <!-- Imagem -->
+            <div class="col-lg-6 d-none d-lg-block">
+              <img src="{% static 'img/estoque.jpg' %}" 
+                   alt="Imagem de controle de estoque" 
+                   class="img-fluid h-100 w-100" 
+                   style="object-fit: cover;">
             </div>
-            <div class="col-lg-6">
-              <div class="p-5">
-                <div class="text-center">
-                  <h1 class="h4 text-gray-900 mb-4">Login</h1>
+            <!-- Form -->
+            <div class="col-lg-6 d-flex align-items-center justify-content-center">
+              <div class="p-5" style="max-width: 600px; width: 100%;">
+                <div class="text-center mb-4">
+                  <h1 class="h4 text-gray-900">Bem-vindo ao Sistema de Estoque</h1>
+                  <p class="text-muted">Gerencie suas mercadorias de forma prática e segura.</p>
                 </div>
-                <form class="user" method="POST">
+                <form method="POST" class="user">
                   {% csrf_token %}
                   <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control form-control-user"
-                      id="username"
-                      name="username"
-                      aria-describedby="emailHelp"
-                      placeholder="Digite o endereço de e-mail..."
-                      required
-                    />
+                    <input type="text" name="username" class="form-control form-control-user" placeholder="Usuário" required>
                   </div>
                   <div class="form-group">
-                    <input
-                      type="password"
-                      class="form-control form-control-user"
-                      id="password"
-                      name="password"
-                      placeholder="Senha"
-                      required
-                    />
+                    <input type="password" name="password" class="form-control form-control-user" placeholder="Senha" required>
                   </div>
-                  <button
-                    type="submit"
-                    href="index.html"
-                    class="btn btn-primary btn-user btn-block"
-                  >
-                    Entrar
-                  </button>
+                  <button type="submit" class="btn btn-primary btn-user btn-block">Entrar</button>
                 </form>
                 {% if form.errors %}
-                    <div class="alert alert-danger mt-4">
-                        <ul class="mb-0">
-                            {% for field in form %}
-                                {% for error in field.errors %}
-                                    <li>{{error}}</li>
-                                {% endfor %}
-                            {% endfor %}
-                            {% for error in form.non_field_errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                <div class="alert alert-danger mt-4">
+                  <ul class="mb-0">
+                    {% for field in form %}
+                      {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                      {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
                 {% endif %}
               </div>
             </div>

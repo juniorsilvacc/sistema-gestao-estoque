@@ -58,7 +58,9 @@
         </div>
 
         <div>
-          {% include 'components/_footer.html' %}
+          {% if user.is_authenticated %}
+            {% include 'components/_footer.html' %}
+          {% endif %}
         </div>
       </div>
 
