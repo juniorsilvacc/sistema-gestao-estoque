@@ -38,12 +38,16 @@
   <body id="page-top">
 
     <div id="wrapper">
-      {% include 'components/_sidebar.html' %}
+      {% if user.is_authenticated %}
+        {% include 'components/_sidebar.html' %}
+      {% endif %}
 
       <div id="content-wrapper" class="d-flex flex-column">
 
         <div id="content">
-          {% include 'components/_header.html' %}
+          {% if user.is_authenticated %}
+            {% include 'components/_header.html' %}
+          {% endif %}
 
           <main>
             {% block content %}

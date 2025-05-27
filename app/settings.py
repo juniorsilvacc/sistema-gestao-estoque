@@ -45,8 +45,12 @@ INSTALLED_APPS = [
     'products',
     'inflows',
     'outflows',
-    
 ]
+
+LOGIN_URL = 'login'
+
+# Após o login, me redicione para o dashboard "/"
+LOGIN_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,7 +67,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['app/templates'],
+        'DIRS': ['app', 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
