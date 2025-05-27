@@ -41,9 +41,11 @@
           </div>
         </form> -->
 
-        <a href="{% url 'brand_create' %}" class="btn btn-success btn-sm">
-          <i class="fas fa-plus-circle mr-1"></i> Nova Marca
-        </a>
+        {% if perms.brands.add_brand %}
+          <a href="{% url 'brand_create' %}" class="btn btn-success btn-sm">
+            <i class="fas fa-plus-circle mr-1"></i> Nova Marca
+          </a>
+        {% endif %}
       </div>
     </div>
 
@@ -69,23 +71,28 @@
               <td>{{ brand.description }}</td>
               <td>
                 <div class="d-flex gap-1">
-                  <a href="{% url 'brand_detail' brand.pk %}" class="btn btn-info btn-circle btn-sm d-flex align-items-center justify-content-center">
-                    <i class="fas fa-eye"></i>
-                  </a>
+                  {% if perms.brands.view_brand %}
+                    <a href="{% url 'brand_detail' brand.pk %}" class="btn btn-info btn-circle btn-sm d-flex align-items-center justify-content-center">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                  {% endif %}
 
-                  <a href="{% url 'brand_update' brand.pk %}" class="btn btn-warning btn-circle btn-sm d-flex align-items-center justify-content-center">
-                    <i class="fas fa-edit"></i>
-                  </a>
+                  {% if perms.brands.change_brand %}
+                    <a href="{% url 'brand_update' brand.pk %}" class="btn btn-warning btn-circle btn-sm d-flex align-items-center justify-content-center">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                  {% endif %}
 
-                  <button 
-                    class="btn btn-danger btn-circle btn-sm d-flex align-items-center justify-content-center"
-                    data-toggle="modal"
-                    data-target="#deleteModal"
-                    data-id="{{ brand.id }}"
-                  >
-                    <i class="fas fa-trash"></i>
-                  </button>
-                  </form>
+                  {% if perms.brands.add_brand %}
+                    <button 
+                      class="btn btn-danger btn-circle btn-sm d-flex align-items-center justify-content-center"
+                      data-toggle="modal"
+                      data-target="#deleteModal"
+                      data-id="{{ brand.id }}"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  {% endif %}
                 </div>
               </td>
             </tr>

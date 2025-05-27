@@ -33,60 +33,74 @@
   <div class="sidebar-heading">Gerenciamento</div>
 
   <!-- Products -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProdutos"
-      aria-expanded="true" aria-controls="collapseProdutos">
-      <i class="fas fa-fw fa-box"></i>
-      <span>Produtos</span>
-    </a>
-    <div id="collapseProdutos" class="collapse" aria-labelledby="headingProdutos" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Utilities:</h6>
-        <a class="collapse-item" href="{% url 'product_list' %}">Listar</a>
-        <a class="collapse-item" href="{% url 'product_create' %}">Novo Produto</a>
+  {% if perms.products.view_product %}
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProdutos"
+        aria-expanded="true" aria-controls="collapseProdutos">
+        <i class="fas fa-fw fa-box"></i>
+        <span>Produtos</span>
+      </a>
+      <div id="collapseProdutos" class="collapse" aria-labelledby="headingProdutos" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Custom Utilities:</h6>
+          <a class="collapse-item" href="{% url 'product_list' %}">Listar</a>
+          {% if perms.products.add_product %}
+            <a class="collapse-item" href="{% url 'product_create' %}">Novo Produto</a>
+          {% endif %}
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
+  {% endif %}
 
   <!-- Suppliers -->
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'supplier_list' %}">
-      <i class="fas fa-fw fa-truck"></i>
-      <span>Fornecedores</span>
-    </a>
-  </li>
+  {% if perms.suppliers.view_supplier %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'supplier_list' %}">
+        <i class="fas fa-fw fa-truck"></i>
+        <span>Fornecedores</span>
+      </a>
+    </li>
+  {% endif %}
 
   <!-- Brands -->
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'brand_list' %}">
-      <i class="fas fa-fw fa-tags"></i>
-      <span>Marcas</span>
-    </a>
-  </li>
+  {% if perms.brands.view_brand %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'brand_list' %}">
+        <i class="fas fa-fw fa-tags"></i>
+        <span>Marcas</span>
+      </a>
+    </li>
+  {% endif %}
 
   <!-- Categories -->
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'category_list' %}">
-      <i class="fas fa-fw fa-th-large"></i>
-      <span>Categorias</span>
-    </a>
-  </li>
+  {% if perms.categories.view_category %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'category_list' %}">
+        <i class="fas fa-fw fa-th-large"></i>
+        <span>Categorias</span>
+      </a>
+    </li>
+  {% endif %}
 
   <!-- Inflows -->
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'inflow_list' %}">
-      <i class="fas fa-fw fa-arrow-down"></i>
-      <span>Entradas</span>
-    </a>
-  </li>
+  {% if perms.inflows.view_inflow %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'inflow_list' %}">
+        <i class="fas fa-fw fa-arrow-down"></i>
+        <span>Entradas</span>
+      </a>
+    </li>
+  {% endif %}
 
   <!-- Outflows -->
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'outflow_list' %}">
-      <i class="fas fa-fw fa-arrow-up"></i>
-      <span>Saídas</span>
-    </a>
-  </li>
+  {% if perms.outflows.view_outflow %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'outflow_list' %}">
+        <i class="fas fa-fw fa-arrow-up"></i>
+        <span>Saídas</span>
+      </a>
+    </li>
+  {% endif %}
 
   <!-- Sidebar Toggler (Sidebar) -->
   <div class="text-center d-none d-md-inline mt-auto mb-3">

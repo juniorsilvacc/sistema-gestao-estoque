@@ -6,22 +6,36 @@
 
 {% block content %}
 
-  {% include 'components/_product_metrics.html' %}
-  {% include 'components/_sales_metrics.html' %}
+  {% if perms.products.view_product and perms.inflows.view_inflow %}
+    {% include 'components/_product_metrics.html' %}
+  {% endif %}
 
-  <div class="container-fluid mb-4">
-    <div class="row">
-      <div class="row justify-content-center mt-4">
-        <div class="col-md-6 text-center">
-          <h1 class="h5 mb-0 text-gray-800">Movimentações nos últimos 7 dias 🗓️</h1>
-          <canvas id="dailySalesChart"></canvas>
-        </div>
+  {% if perms.outflows.view_outflow %}
+    {% include 'components/_sales_metrics.html' %}
+  {% endif %}
 
-        <div class="col-md-6 text-center">
-          <h1 class="h5 mb-0 text-gray-800">Saídas diárias 📈</h1>
-          <canvas id="dailySalesQuantityChart"></canvas>
+  {% if perms.outflows.view_outflow %}
+    <div class="container-fluid mb-4">
+      <div class="row">
+        <div class="row justify-content-center mt-4">
+          <div class="col-md-6 text-center">
+            <h1 class="h5 mb-0 text-gray-800">Movimentações nos últimos 7 dias 🗓️</h1>
+            <canvas id="dailySalesChart"></canvas>
+          </div>
+
+          <div class="col-md-6 text-center">
+            <h1 class="h5 mb-0 text-gray-800">Saídas diárias 📈</h1>
+            <canvas id="dailySalesQuantityChart"></canvas>
+          </div>
         </div>
       </div>
+    </div>
+  {% endif %}
+
+  {% if perms.products.view_product %}
+  <div class="container-fluid mb-4">
+    <div class="row">
+      
 
       <div class="col-md-6 text-center mt-4">
         <h1 class="h5 mb-0 text-gray-800">Estoque Atual por Produto 🏷️</h1>
@@ -34,16 +48,13 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-
       const dailySalesData = JSON.parse('{{ daily_sales_data|safe }}')
       const dailySalesQuantityData = JSON.parse('{{ daily_sales_quantity_data|safe }}')
-      const stockData = JSON.parse('{{ top_10_stock|safe }}')
-      const soldData = JSON.parse('{{ top_5_sold|safe }}')
-
-
+     
       // Gráfico de valor de vendas
       new Chart(document.getElementById('dailySalesChart').getContext('2d'), {
         type: 'line',
@@ -97,6 +108,11 @@
           }
         }
       })
+    })
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const stockData = JSON.parse('{{ top_10_stock|safe }}')
+      const soldData = JSON.parse('{{ top_5_sold|safe }}')
 
       new Chart(document.getElementById('topStockChart'), {
         type: 'bar',
@@ -123,6 +139,4 @@
       })
     })
   </script>
-
-  
 {% endblock %}

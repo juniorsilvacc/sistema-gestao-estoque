@@ -48,7 +48,7 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     template_name = 'product_create.html'
     form_class = forms.ProductForm
     success_url = reverse_lazy('product_list')
-    permission_required = 'products.create_product'
+    permission_required = 'products.add_product'
 
 class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Product
