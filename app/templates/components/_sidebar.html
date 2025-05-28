@@ -26,29 +26,41 @@
     >
   </li>
 
+  <!-- Users -->
+  {% if request.user.is_superuser %}
+  <!-- Divider -->
+  <hr class="sidebar-divider" />
+
+  <div class="sidebar-heading">Administração</div>
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
+        aria-expanded="true" aria-controls="collapseUsers">
+        <i class="fas fa-fw fa-box"></i>
+        <span>Usuários</span>
+      </a>
+      <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Utilitários:</h6>
+          <a class="collapse-item" href="{% url 'users_list' %}">Listar</a>
+          <a class="collapse-item" href="#">#</a>
+        </div>
+      </div>
+    </li>
+  {% endif %}
+
   <!-- Divider -->
   <hr class="sidebar-divider" />
 
   <!-- Heading -->
-  <div class="sidebar-heading">Gerenciamento</div>
+  <div class="sidebar-heading">Gestão de Recursos</div>
 
   <!-- Products -->
   {% if perms.products.view_product %}
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProdutos"
-        aria-expanded="true" aria-controls="collapseProdutos">
-        <i class="fas fa-fw fa-box"></i>
+      <a class="nav-link" href="{% url 'product_list' %}">
+        <i class="fas fa-fw fa-truck"></i>
         <span>Produtos</span>
       </a>
-      <div id="collapseProdutos" class="collapse" aria-labelledby="headingProdutos" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Utilities:</h6>
-          <a class="collapse-item" href="{% url 'product_list' %}">Listar</a>
-          {% if perms.products.add_product %}
-            <a class="collapse-item" href="{% url 'product_create' %}">Novo Produto</a>
-          {% endif %}
-        </div>
-      </div>
     </li>
   {% endif %}
 
