@@ -1,0 +1,76 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+  SGE - Detalhes de Usuário 
+{% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-1 text-gray-800">Informações do Usuário</h1>
+  <p class="mb-4">
+    Visualize abaixo os dados do usuário cadastrado.
+    <i
+      class="fas fa-info-circle text-info"
+      data-toggle="tooltip"
+      title="Esses dados não podem ser editados aqui."
+    ></i>
+  </p>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">ID:</dt>
+        <dd class="col-sm-9">{{ user.id }}</dd>
+
+        <dt class="col-sm-3">Username:</dt>
+        <dd class="col-sm-9">{{ user.username }}</dd>
+
+				<dt class="col-sm-3">Email:</dt>
+        <dd class="col-sm-9">{{ user.email }}</dd>
+
+				<dt class="col-sm-3">Primeiro nome:</dt>
+        <dd class="col-sm-9">{{ user.first_name }}</dd>
+
+				<dt class="col-sm-3">Último nome:</dt>
+        <dd class="col-sm-9">{{ user.last_name }}</dd>
+
+				<dt class="col-sm-3">Data de criação:</dt>
+        <dd class="col-sm-9">{{ user.date_joined|date:"d/m/Y H:i" }}</dd>
+
+				<dt class="col-sm-3">Último login:</dt>
+        <dd class="col-sm-9">{{ user.last_login|default:"-"|date:"d/m/Y H:i" }}</dd>
+
+				<dt class="col-sm-3">Status:</dt>
+        <dd class="col-sm-9">
+					{% if user.is_active %}
+						<span class="badge bg-success">Ativo</span>
+					{% else %}
+						<span class="badge bg-danger">Inativo</span>
+					{% endif %}
+				</dd>
+
+				<dt class="col-sm-3">Superusuário:</dt>
+        <dd class="col-sm-9">{{ user.is_superuser|yesno:"Sim,Não" }}</dd>
+
+				<dt class="col-sm-3">Staff:</dt>
+        <dd class="col-sm-9">{{ user.is_staff|yesno:"Sim,Não" }}</dd>
+
+				<dt class="col-sm-3">Cargo:</dt>
+        <dd class="col-sm-9">{{ user.profile.get_role_display }}</dd>
+      </dl>
+
+      <a
+        href="{% url 'users_list' %}"
+        class="btn btn-sm btn-secondary btn-icon-split shadow-sm"
+      >
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Voltar</span>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
