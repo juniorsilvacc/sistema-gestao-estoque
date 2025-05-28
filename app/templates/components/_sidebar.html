@@ -35,7 +35,7 @@
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
         aria-expanded="true" aria-controls="collapseUsers">
-        <i class="fas fa-fw fa-box"></i>
+        <i class="fas fa-fw fa-user"></i>
         <span>Usuários</span>
       </a>
       <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
@@ -58,7 +58,7 @@
   {% if perms.products.view_product %}
     <li class="nav-item">
       <a class="nav-link" href="{% url 'product_list' %}">
-        <i class="fas fa-fw fa-truck"></i>
+        <i class="fas fa-fw fa-box"></i>
         <span>Produtos</span>
       </a>
     </li>

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load permission_tags %}
+
+{% block title %} 
+  SGE - Permissões e Cargos
+{% endblock %} 
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-1 text-gray-800">Gerenciar Permissões de: {{ user_obj.username }}</h1>
+  <p class="mb-4">
+    Gerencie suas permissões e cargos.
+  </p>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="row">
+        <form method="post">
+          {% csrf_token %}
+
+          <!-- CARGO -->
+          <h4>Cargo</h4>
+          <select name="role" class="form-control mb-3" style="max-width: 300px;">
+            <option value="admin" {% if user_obj.profile.role == 'admin' %}selected{% endif %}>Administrador</option>
+            <option value="manager" {% if user_obj.profile.role == 'manager' %}selected{% endif %}>Gerente</option>
+            <option value="user" {% if user_obj.profile.role == 'user' %}selected{% endif %}>Usuário</option>
+          </select>
+
+          <!-- PERMISSÕES -->
+          <h4>Permissões</h4>
+          <div style="max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+            {% for perm in all_permissions %}
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="permissions" value="{{ perm.id }}"
+                  id="perm{{ perm.id }}" {% if perm in user_obj.user_permissions.all %}checked{% endif %}>
+                <label class="form-check-label" for="perm{{ perm.id }}">
+                  {{ translations|get_translation:perm.name }}
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-3">Salvar Alterações</button>
+          <a href="{% url 'users_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
