@@ -25,9 +25,9 @@ class InflowCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'inflow_create.html'
     form_class = forms.InflowForm
     success_url = reverse_lazy('inflow_list')
-    permission_required = 'outflows.add_outflow'
+    permission_required = 'inflows.add_inflow'
 
 class InflowDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Inflow
     template_name = 'inflow_detail.html'
-    permission_required = 'outflows.view_outflow'
+    permission_required = 'inflows.view_inflow'
