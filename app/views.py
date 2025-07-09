@@ -1,6 +1,7 @@
 import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from ai.models import APIResult
 from . import metrics
 
 
@@ -19,13 +20,17 @@ def home(request):
     top_10_stock = metrics.get_top_10_stock_products()
     top_5_sold = metrics.get_top_5_sold_products()
 
+    ai_result_instance = APIResult.objects.first()
+    ai_result = ai_result_instance.result if ai_result_instance else None
+
     context = {
         'product_metrics': product_metrics,
         'sales_metrics': sales_metrics,
         'daily_sales_data': json.dumps(daily_sales_data),
         'daily_sales_quantity_data': json.dumps(daily_sales_quantity_data),
         'top_10_stock': json.dumps(top_10_stock),
-        'top_5_sold': json.dumps(top_5_sold)
+        'top_5_sold': json.dumps(top_5_sold),
+        'ai_result': ai_result,
     }
 
     return render(request, 'pages/home.html', context)

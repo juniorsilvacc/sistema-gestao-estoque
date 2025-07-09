@@ -1,0 +1,38 @@
+<div class="container-fluid my-4">
+    <div class="accordion accordion-flush shadow h-100" id="accordionFlushExample">
+        <div class="accordion-item border">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button
+                    class="accordion-button collapsed fw-semibold text-primary"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne"
+                    aria-expanded="false"
+                    aria-controls="flush-collapseOne"
+                >
+                    💡 Resultado da IA — Análise Gerada
+                </button>
+            </h2>
+            <div
+                id="flush-collapseOne"
+                class="accordion-collapse collapse"
+                aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample"
+            >
+                <div class="accordion-body">
+                    {% if ai_result %}
+                        <p class="mb-2">
+                            <strong>Resumo da Análise:</strong>
+                            <br>
+                        </p>
+                        <div class="text-secondary">
+                            {{ ai_result|linebreaks }}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">Nenhum resultado da IA disponível.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
