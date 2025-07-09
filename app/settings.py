@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'inflows',
     'outflows',
     'users',
+    'ai',
 ]
 
 LOGIN_URL = 'login'
@@ -150,3 +151,10 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# OPEN AI
+OPENAI_MODEL = os.getenv('OPENAI_MODEL')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+
+# FAKE
+USE_FAKE_OPENAI = os.getenv("USE_FAKE_OPENAI", "False") == "False"
