@@ -65,61 +65,57 @@
         >
           <thead>
             <tr>
+              <th>Código</th>
               <th>Título</th>
-              <th>Categoria</th>
-              <th>Marca</th>
-              <th>Número de Série</th>
-              <th>Preço de Custo</th>
               <th>Preço de Venda</th>
-              <th>Quantidade</th>
+              <th>Estoque</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
             {% for product in products %}
-            <tr>
-              <td>{{ product.title }}</td>
-              <td>{{ product.category }}</td>
-              <td>{{ product.brand }}</td>
-              <td>{{ product.serie_number }}</td>
-              <td>{{ product.cost_price|moeda }}</td>
-              <td>{{ product.selling_price|moeda }}</td>
-              <td>
-                {% if product.quantity == 0 %}
-                  <span class="text-danger font-weight-bold">Sem estoque</span>
-                {% elif product.quantity < 3 %}
-                  <span class="text-warning font-weight-bold">Estoque baixo ({{ product.quantity }})</span>
-                {% else %}
-                  {{ product.quantity }}
-                {% endif %}
-              </td>
-              <td>
-                <div class="d-flex gap-1">
-                  {% if perms.products.view_product %}
-                    <a href="{% url 'product_detail' product.pk %}" class="btn btn-info btn-circle btn-sm d-flex align-items-center justify-content-center">
-                      <i class="fas fa-eye"></i>
-                    </a>
-                  {% endif %}
+              <tr>
+                <td>{{ product.internal_code }}</td>
+                <td>{{ product.title }}</td>
+                <td>{{ product.selling_price|moeda }}</td>
 
-                  {% if perms.products.change_product %}
-                    <a href="{% url 'product_update' product.pk %}" class="btn btn-warning btn-circle btn-sm d-flex align-items-center justify-content-center">
-                      <i class="fas fa-edit"></i>
-                    </a>
+                <td>
+                  {% if product.quantity == 0 %}
+                    <span class="text-danger font-weight-bold">Sem estoque</span>
+                  {% elif product.quantity < 3 %}
+                    <span class="text-warning font-weight-bold">Estoque baixo ({{ product.quantity }})</span>
+                  {% else %}
+                    {{ product.quantity }}
                   {% endif %}
+                </td>
+                
+                <td>
+                  <div class="d-flex gap-1">
+                    {% if perms.products.view_product %}
+                      <a href="{% url 'product_detail' product.pk %}" class="btn btn-info btn-circle btn-sm d-flex align-items-center justify-content-center">
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    {% endif %}
 
-                  {% if perms.products.delete_product %}
-                    <button 
-                      class="btn btn-danger btn-circle btn-sm d-flex align-items-center justify-content-center"
-                      data-toggle="modal"
-                      data-target="#deleteModal"
-                      data-id="{{ product.id }}"
-                    >
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  {% endif %}
-                </div>
-              </td>
-            </tr>
+                    {% if perms.products.change_product %}
+                      <a href="{% url 'product_update' product.pk %}" class="btn btn-warning btn-circle btn-sm d-flex align-items-center justify-content-center">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                    {% endif %}
+
+                    {% if perms.products.delete_product %}
+                      <button 
+                        class="btn btn-danger btn-circle btn-sm d-flex align-items-center justify-content-center"
+                        data-toggle="modal"
+                        data-target="#deleteModal"
+                        data-id="{{ product.id }}"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    {% endif %}
+                  </div>
+                </td>
+              </tr>
             {% endfor %}
           </tbody>
         </table>

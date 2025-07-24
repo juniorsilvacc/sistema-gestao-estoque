@@ -3,10 +3,15 @@ from . import models
 
 
 class ProductForm(forms.ModelForm):
-    
+    def clean_title(self):
+        value = self.cleaned_data.get('title')
+        if not value:
+            raise forms.ValidationError('O campo é obrigatório.')
+        return value
+
     class Meta:
         model = models.Product
-        fields = ['title', 'category', 'brand', 'serie_number', 'cost_price', 'selling_price', 'description']
+        fields = ['title', 'category', 'brand', 'serie_number', 'internal_code', 'cost_price', 'selling_price', 'description']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
@@ -17,11 +22,12 @@ class ProductForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3})
         }
         labels = {
-            'title': 'Título',
+            'title': 'Nome do Produto',
             'category': 'Categoria',
             'brand': 'Marca',
             'serie_number': 'Número de Série',
             'cost_price': 'Preço de Custo',
             'selling_price': 'Preço de Venda',
-            'description': 'Descrição'
+            'description': 'Observações'
         }
+        

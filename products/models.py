@@ -1,6 +1,8 @@
 from django.db import models
 from brands.models import Brand
 from categories.models import Category
+import random
+
 
 class Product(models.Model):
     title = models.CharField(max_length=500)
@@ -8,6 +10,7 @@ class Product(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT, related_name='products')
     description = models.TextField(null=True, blank=True)
     serie_number = models.CharField(max_length=200, null=True, blank=True)
+    internal_code = models.CharField(max_length=20, unique=True)
     cost_price = models.DecimalField(max_digits=20, decimal_places=2)
     selling_price = models.DecimalField(max_digits=20, decimal_places=2)
     quantity = models.IntegerField(default=0)
@@ -19,3 +22,6 @@ class Product(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def gerar_codigo(self):
+        return str(random.randint(10**12, 10**13 - 1))

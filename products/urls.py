@@ -7,5 +7,6 @@ urlpatterns = [
     path('products/create/', views.ProductCreateView.as_view(), name='product_create'),
     path('products/<int:pk>/detail/', views.ProductDetailView.as_view(), name='product_detail'),
     path('products/<int:pk>/edit/', views.ProductUpdateView.as_view(), name='product_update'),
-    path('products/<int:pk>/delete/', views.ProductDeleteView.as_view(), name='product_delete')
+    path('products/<int:pk>/delete/', views.ProductDeleteView.as_view(), name='product_delete'),
+    path('gerar-codigo/', views.gerar_codigo_view, name='gerar_codigo'),
 ]

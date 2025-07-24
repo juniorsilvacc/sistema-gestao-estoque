@@ -6,7 +6,10 @@ from . import forms
 from categories.models import Category
 from brands.models import Brand
 from app import metrics
-
+import random
+from django.http import JsonResponse
+from django.views.decorators.http import require_GET
+from django.views.decorators.csrf import csrf_exempt
 
 class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = models.Product
@@ -33,7 +36,7 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         if brand:
             queryset = queryset.filter(brand__id=brand)
         
-        return queryset.order_by('id')
+        return queryset
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,6 +52,14 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     form_class = forms.ProductForm
     success_url = reverse_lazy('product_list')
     permission_required = 'products.add_product'
+
+    def gerar_codigo(self):
+        return str(random.randint(10**12, 10**13 - 1))
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['internal_code'] = self.gerar_codigo()
+        return initial
 
 class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Product
@@ -66,3 +77,9 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     model = models.Product
     success_url = reverse_lazy('product_list')
     permission_required = 'products.delete_product'
+
+@require_GET
+@csrf_exempt
+def gerar_codigo_view(request):
+    codigo = str(random.randint(10**12, 10**13 - 1))
+    return JsonResponse({'codigo': codigo})

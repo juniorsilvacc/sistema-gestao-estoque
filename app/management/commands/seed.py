@@ -11,6 +11,9 @@ from outflows.models import Outflow
 
 fake = Faker()
 
+def gerar_codigo():
+    return str(random.randint(10**12, 10**13 - 1))
+
 class Command(BaseCommand):
     help = 'Popula o banco de dados com dados reais de eletrônicos'
 
@@ -81,7 +84,8 @@ class Command(BaseCommand):
                 serie_number=fake.uuid4(),
                 cost_price=custo,
                 selling_price=venda,
-                quantity=random.randint(5, 50)
+                quantity=random.randint(3, 25),
+                internal_code=gerar_codigo()
             )
             produtos_criados.append(produto)
 
