@@ -2,24 +2,41 @@
 
 {% block title %} 
   SGE - Categoria
-{% endblock %} 
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.input-with-red-line input {
+  border-left: 4px solid red;
+  padding-left: 10px;
+}
+.padding-top-is-whatsapp {
+  padding-top: 38px;
+}
+</style>
+{% endblock %}
 
 {% block content %}
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
   <h1 class="h3 mb-1 text-gray-800">Cadastrar Categoria</h1>
-  <p class="mb-4">
-    Preencha os campos abaixo para cadastrar uma nova categoria no sistema.
-    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Essa categoria será exibida na listagens."></i>
-  </p>
+  <p class="mb-4">Preencha os campos abaixo para cadastrar uma nova categoria no sistema.</p>
 
   <div class="card shadow mb-4">
     <div class="card-body">
       <form method="post" action="{% url 'category_create' %}">
         {% csrf_token %}
         
-        {{ form.as_p }}
+        <div class="form-group input-with-red-line">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+        </div>
+
+        <div class="form-group">
+          {{ form.description.label_tag }}
+          {{ form.description }}
+        </div>
   
         <button type="submit" class="btn btn-sm btn-primary btn-icon-split shadow-sm">
           <span class="icon text-white-50">
