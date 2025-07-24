@@ -4,6 +4,17 @@
   SGE - Produto
 {% endblock %} 
 
+{% block extra_css %}
+<style>
+.input-with-red-line input,
+.input-with-red-line select,
+.input-with-red-line textarea {
+  border-left: 4px solid red !important;
+  padding-left: 10px;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -19,17 +30,17 @@
       <form method="post" action="{% url 'product_create' %}">
         {% csrf_token %}
         
-        <div class="form-group">
+        <div class="form-group input-with-red-line">
           {{ form.title.label_tag }}
           {{ form.title }}
         </div>
 
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-6 input-with-red-line">
             {{ form.category.label_tag }}
             {{ form.category }}
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-6 input-with-red-line">
             {{ form.brand.label_tag }}
             {{ form.brand }}
           </div>
@@ -38,7 +49,7 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="id_codigo_interno">Código Interno:</label>
-            <div class="input-group">
+            <div class="input-group input-with-red-line">
               <input type="text" name="internal_code" id="id_codigo_interno"
                     class="form-control" value="{{ form.internal_code.value }}">
               <div class="input-group-append">
@@ -55,11 +66,11 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-6 input-with-red-line">
             {{ form.cost_price.label_tag }}
             {{ form.cost_price }}
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-6 input-with-red-line">
             {{ form.selling_price.label_tag }}
             {{ form.selling_price }}
           </div>

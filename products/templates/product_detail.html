@@ -11,95 +11,56 @@
   <h1 class="h3 mb-1 text-gray-800">Detalhes de Produto</h1>
   <p class="mb-4">Visualize abaixo os dados do produto cadastrado.</p>
 
-  <div class="card shadow mb-4">
+  <div class="card shadow-sm border-0 mb-4">
     <div class="card-body">
       <h4 class="mb-4"><strong>Produto:</strong> {{ product.title }}</h4>
 
-      <table class="table table-borderless table-sm" style="max-width: 800px">
-        <tbody>
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              ID
-            </th>
-            <td>{{ product.id }}</td>
-          </tr>
+      <div class="row">
+        <div class="col-md-12 md-6">
+          <label class="text-muted small mb-1">Nome</label>
+          <div class="border rounded p-2 bg-light">{{ product.title }}</div>
+        </div>
 
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              Nome
-            </th>
-            <td>{{ product.title }}</td>
-          </tr>
+        <div class="col-md-6 md-3">
+          <label class="text-muted small mb-1">Categoria</label>
+          <div class="border rounded p-2 bg-light">{{ product.category }}</div>
+        </div>
 
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              Categoria
-            </th>
-            <td>{{ product.category }}</td>
-          </tr>
+        <div class="col-md-6 md-3">
+          <label class="text-muted small mb-1">Marca</label>
+          <div class="border rounded p-2 bg-light">{{ product.brand }}</div>
+        </div>
 
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              Marca
-            </th>
-            <td>{{ product.brand }}</td>
-          </tr>
+        <div class="col-md-6 md-3">
+          <label class="text-muted small mb-1">Código Interno</label>
+          <div class="border rounded p-2 bg-light">{{ product.internal_code }}</div>
+        </div>
 
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              Código Interno
-            </th>
-            <td>{{ product.internal_code }}</td>
-          </tr>
+        <div class="col-md-6 md-3">
+          <label class="text-muted small mb-1">Número de Série</label>
+          <div class="border rounded p-2 bg-light">{{ product.serie_number|default:"-" }}</div>
+        </div>
 
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              Número de Série
-            </th>
-            <td>
-              {% if not product.serie_number %}
-              <span class="text-muted font-italic">Não informado</span>
-              {% else %} {{ product.serie_number }} {% endif %}
-            </td>
-          </tr>
+        <div class="col-md-4 md-3">
+          <label class="text-muted small mb-1">Preço de Custo</label>
+          <div class="border rounded p-2 bg-light">{{ product.cost_price }}</div>
+        </div>
 
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              Preço de Custo
-            </th>
-            <td>R$ {{ product.cost_price }}</td>
-          </tr>
+        <div class="col-md-4 md-3">
+          <label class="text-muted small mb-1">Preço de Venda</label>
+          <div class="border rounded p-2 bg-light">{{ product.selling_price }}</div>
+        </div>
 
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              Preço de Venda
-            </th>
-            <td>R$ {{ product.selling_price }}</td>
-          </tr>
+        <div class="col-md-4 md-3">
+          <label class="text-muted small mb-1">Estoque</label>
+          <div class="border rounded p-2 bg-light">{{ product.quantity }}</div>
+        </div>
 
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              Estoque
-            </th>
-            <td>
-              {% if not product.quantity %}
-              <span class="text-muted font-italic">Sem estoque</span>
-              {% else %} {{ product.quantity }} unidades {% endif %}
-            </td>
-          </tr>
-
-          <tr>
-            <th class="text-left font-weight-bold" style="white-space: nowrap">
-              Observações
-            </th>
-            <td>
-              {% if product.description %} {{ product.description }} {% else %}
-              <span class="text-muted font-italic">Sem observações</span>
-              {% endif %}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="col-md-12 md-6">
+          <label class="text-muted small mb-1">Observações</label>
+          <div class="border rounded p-2 bg-light">{{ product.description|default:"-" }}</div>
+        </div>
+      </div>
 
       <a href="{% url 'product_list' %}" class="btn btn-sm btn-secondary mt-3">
         <i class="fas fa-arrow-left"></i> Voltar
