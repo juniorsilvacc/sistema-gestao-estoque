@@ -1,5 +1,6 @@
 {% extends 'base.html' %} 
 {% load static %}
+{% load custom_supplier %}
 
 {% block title %} 
   SGE - Fornecedor 
@@ -20,27 +21,6 @@
 
     <div class="card-header py-3">
       <div class="d-flex justify-content-start align-items-center">
-        <!-- <form
-          class="form-inline"
-          action="{% url 'brand_list' %}" 
-          method="GET"
-        >
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control border small"
-              placeholder="Pesquisar..."
-              name="name"
-              value="{{ request.GET.name }}"
-            />
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="submit">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
-            </div>
-          </div>
-        </form> -->
-
         {% if perms.suppliers.add_supplier %}
           <a href="{% url 'supplier_create' %}" class="btn btn-success btn-sm">
             <i class="fas fa-plus-circle mr-1"></i> Nova Fornecedor
@@ -60,42 +40,68 @@
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Descrição</th>
+              <th>CNPJ</th>
+              <th>Celular</th>
+              <th>Telefone</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
             {% for supplier in suppliers %}
-            <tr>
-              <td>{{ supplier.name }}</td>
-              <td>{{ supplier.description }}</td>
-              <td>
-                <div class="d-flex gap-1">
-                  {% if perms.suppliers.view_supplier %}
-                    <a href="{% url 'supplier_detail' supplier.pk %}" class="btn btn-info btn-circle btn-sm d-flex align-items-center justify-content-center">
-                      <i class="fas fa-eye"></i>
-                    </a>
-                  {% endif %}
+              <tr>
+                <td>{{ supplier.name }}</td>
 
-                  {% if perms.suppliers.change_supplier %}
-                    <a href="{% url 'supplier_update' supplier.pk %}" class="btn btn-warning btn-circle btn-sm d-flex align-items-center justify-content-center">
-                      <i class="fas fa-edit"></i>
-                    </a>
+                <td>
+                  {% if not supplier.cnpj %}
+                    <span>-</span>
+                  {% else %}
+                    {{ supplier.cnpj|format_cnpj }}
                   {% endif %}
+                </td>
 
-                  {% if perms.suppliers.delete_supplier %}
-                    <button 
-                      class="btn btn-danger btn-circle btn-sm d-flex align-items-center justify-content-center"
-                      data-toggle="modal"
-                      data-target="#deleteModal"
-                      data-id="{{ supplier.id }}"
-                    >
-                      <i class="fas fa-trash"></i>
-                    </button>
+                <td>
+                  {% if not supplier.cellphone %}
+                    <span>-</span>
+                  {% else %}
+                    {{ supplier.cellphone|format_cellphone }}
                   {% endif %}
-                </div>
-              </td>
-            </tr>
+                </td>
+
+                <td>
+                  {% if not supplier.phone %}
+                    <span>-</span>
+                  {% else %}
+                    {{ supplier.phone|format_phone }}
+                  {% endif %}
+                </td>
+
+                <td>
+                  <div class="d-flex gap-1">
+                    {% if perms.suppliers.view_supplier %}
+                      <a href="{% url 'supplier_detail' supplier.pk %}" class="btn btn-info btn-circle btn-sm d-flex align-items-center justify-content-center">
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    {% endif %}
+
+                    {% if perms.suppliers.change_supplier %}
+                      <a href="{% url 'supplier_update' supplier.pk %}" class="btn btn-warning btn-circle btn-sm d-flex align-items-center justify-content-center">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                    {% endif %}
+
+                    {% if perms.suppliers.delete_supplier %}
+                      <button 
+                        class="btn btn-danger btn-circle btn-sm d-flex align-items-center justify-content-center"
+                        data-toggle="modal"
+                        data-target="#deleteModal"
+                        data-id="{{ supplier.id }}"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    {% endif %}
+                  </div>
+                </td>
+              </tr>
             {% endfor %}
           </tbody>
         </table>

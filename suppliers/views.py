@@ -18,7 +18,7 @@ class SupplierListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         if name:
             queryset = queryset.filter(name__icontains=name)
         
-        return queryset.order_by('id')
+        return queryset
 
 class SupplierCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Supplier

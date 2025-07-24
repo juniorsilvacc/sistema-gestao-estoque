@@ -2,7 +2,19 @@
 
 {% block title %} 
   SGE - Fornecedor 
-{% endblock %} 
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.input-with-red-line input {
+  border-left: 4px solid red;
+  padding-left: 10px;
+}
+.padding-top-is-whatsapp {
+  padding-top: 38px;
+}
+</style>
+{% endblock %}
 
 {% block content %}
 <!-- Begin Page Content -->
@@ -19,7 +31,78 @@
       <form method="post" action="{% url 'supplier_create' %}">
         {% csrf_token %}
         
-        {{ form.as_p }}
+        <div class="form-group input-with-red-line">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+        </div>
+
+        <div class="form-group">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+        </div>
+
+        <div class="form-group">
+          {{ form.cnpj.label_tag }}
+          {{ form.cnpj }}
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            {{ form.phone.label_tag }}
+            {{ form.phone }}
+          </div>
+          <div class="form-group col-md-3">
+            {{ form.cellphone.label_tag }}
+            {{ form.cellphone }}
+          </div>
+          <div class="form-group col-md-3 padding-top-is-whatsapp">
+            {{ form.is_whatsapp.label_tag }}
+            {{ form.is_whatsapp }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {{ form.cep.label_tag }}
+            {{ form.cep }}
+          </div>
+          <div class="form-group col-md-6">
+            {{ form.neighborhood.label_tag }}
+            {{ form.neighborhood }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {{ form.city.label_tag }}
+            {{ form.city }}
+          </div>
+          <div class="form-group col-md-6">
+            {{ form.state.label_tag }}
+            {{ form.state }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {{ form.street.label_tag }}
+            {{ form.street }}
+          </div>
+          <div class="form-group col-md-6">
+            {{ form.number.label_tag }}
+            {{ form.number }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.complement.label_tag }}
+          {{ form.complement }}
+        </div>
+
+        <div class="form-group">
+          {{ form.description.label_tag }}
+          {{ form.description }}
+        </div>
   
         <button type="submit" class="btn btn-sm btn-primary btn-icon-split shadow-sm">
           <span class="icon text-white-50">
@@ -39,4 +122,18 @@
     </div>
   </div>
 </div>
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('#id_cnpj').mask('00.000.000/0000-00', {reverse: true});
+    $('#id_phone').mask('(00) 0000-0000');
+    $('#id_cellphone').mask('(00) 00000-0000');
+    $('#id_cep').mask('00000-000');
+});
+</script>
+{% endblock %}
+
 {% endblock %}

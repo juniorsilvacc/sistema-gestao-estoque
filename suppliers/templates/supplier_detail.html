@@ -1,52 +1,99 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load custom_supplier %}
 
-{% block title %} 
-  SGE - Fornecedor 
+{% block title %}
+  SGE - Fornecedor
 {% endblock %}
 
 {% block content %}
-<!-- Begin Page Content -->
 <div class="container-fluid">
-  <!-- Page Heading -->
   <h1 class="h3 mb-1 text-gray-800">Detalhes do Fornecedor</h1>
-  <p class="mb-4">
-    Visualize abaixo os dados do fornecedor cadastrado.
-    <i
-      class="fas fa-info-circle text-info"
-      data-toggle="tooltip"
-      title="Esses dados não podem ser editados aqui."
-    ></i>
-  </p>
+  <p class="mb-4">Visualize abaixo os dados do fornecedor cadastrado.</p>
 
-  <div class="card shadow mb-4">
+  <div class="card shadow-sm border-0 mb-4">
     <div class="card-body">
-      <dl class="row">
-        <dt class="col-sm-3">ID</dt>
-        <dd class="col-sm-9">{{ supplier.id }}</dd>
+      <h4 class="mb-4"><strong>{{ supplier.name }}</strong></h4>
 
-        <dt class="col-sm-3">Nome</dt>
-        <dd class="col-sm-9">{{ supplier.name }}</dd>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">ID</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.id }}</div>
+        </div>
 
-        <dt class="col-sm-3">Descrição</dt>
-        <dd class="col-sm-9">
-          {% if supplier.description %} 
-            {{ supplier.description }} 
-          {% else %}
-            <span class="text-muted font-weight-bold">
-              Sem descrição disponível.
-            </span>
-          {% endif %}
-        </dd>
-      </dl>
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">Email</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.email|default:"-" }}</div>
+        </div>
 
-      <a
-        href="{% url 'supplier_list' %}"
-        class="btn btn-sm btn-secondary btn-icon-split shadow-sm"
-      >
-        <span class="icon text-white-50">
-          <i class="fas fa-arrow-left"></i>
-        </span>
-        <span class="text">Voltar</span>
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">CNPJ</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.cnpj|format_cnpj|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">Celular</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.cellphone|format_cellphone|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">É WhatsApp?</label>
+          <div class="border rounded p-2 bg-light">
+            {% if supplier.is_whatsapp %}
+              Sim
+            {% else %}
+              Não
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">Telefone</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.phone|format_phone|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">CEP</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.cep|format_cep|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">Bairro</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.neighborhood|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">Cidade</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.city|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">Estado</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.get_state_display|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="text-muted small mb-1">Rua</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.street|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label class="text-muted small mb-1">Número</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.number|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label class="text-muted small mb-1">Complemento</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.complement|default:"-" }}</div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <label class="text-muted small mb-1">Descrição</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.description|default:"-" }}</div>
+        </div>
+      </div>
+
+      <a href="{% url 'supplier_list' %}" class="btn btn-sm btn-secondary mt-3">
+        <i class="fas fa-arrow-left"></i> Voltar
       </a>
     </div>
   </div>
