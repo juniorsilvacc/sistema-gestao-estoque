@@ -6,20 +6,17 @@
 {% endblock %}
 
 {% block content %}
+<!-- Begin Page Content -->
 <div class="container-fluid">
+  <!-- Page Heading -->
   <h1 class="h3 mb-1 text-gray-800">Detalhes do Fornecedor</h1>
   <p class="mb-4">Visualize abaixo os dados do fornecedor cadastrado.</p>
 
   <div class="card shadow-sm border-0 mb-4">
     <div class="card-body">
-      <h4 class="mb-4"><strong>{{ supplier.name }}</strong></h4>
+      <h4 class="mb-4"><strong>Fornecedor:</strong> {{ supplier.name }}</strong></h4>
 
       <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="text-muted small mb-1">ID</label>
-          <div class="border rounded p-2 bg-light">{{ supplier.id }}</div>
-        </div>
-
         <div class="col-md-6 mb-3">
           <label class="text-muted small mb-1">Email</label>
           <div class="border rounded p-2 bg-light">{{ supplier.email|default:"-" }}</div>
@@ -30,12 +27,17 @@
           <div class="border rounded p-2 bg-light">{{ supplier.cnpj|format_cnpj|default:"-" }}</div>
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label class="text-muted small mb-1">Celular</label>
           <div class="border rounded p-2 bg-light">{{ supplier.cellphone|format_cellphone|default:"-" }}</div>
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
+          <label class="text-muted small mb-1">Telefone</label>
+          <div class="border rounded p-2 bg-light">{{ supplier.phone|format_phone|default:"-" }}</div>
+        </div>
+
+        <div class="col-md-4 mb-3">
           <label class="text-muted small mb-1">É WhatsApp?</label>
           <div class="border rounded p-2 bg-light">
             {% if supplier.is_whatsapp %}
@@ -44,11 +46,6 @@
               Não
             {% endif %}
           </div>
-        </div>
-
-        <div class="col-md-6 mb-3">
-          <label class="text-muted small mb-1">Telefone</label>
-          <div class="border rounded p-2 bg-light">{{ supplier.phone|format_phone|default:"-" }}</div>
         </div>
 
         <div class="col-md-6 mb-3">
