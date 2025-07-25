@@ -2,7 +2,18 @@
 
 {% block title %} 
   SGE - Saída
-{% endblock %} 
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.input-with-red-line input,
+.input-with-red-line select,
+.input-with-red-line textarea {
+  border-left: 4px solid red !important;
+  padding-left: 10px;
+}
+</style>
+{% endblock %}
 
 {% block content %}
 <!-- Begin Page Content -->
@@ -19,7 +30,25 @@
       <form method="post" action="{% url 'outflow_create' %}">
         {% csrf_token %}
         
-        {{ form.as_p }}
+        <div class="form-group input-with-red-line">
+          {{ form.product.label_tag }}
+          {{ form.product }}
+        </div>
+
+        <div class="form-group input-with-red-line">
+          {{ form.reason.label_tag }}
+          {{ form.reason }}
+        </div>
+
+        <div class="form-group input-with-red-line">
+          {{ form.quantity.label_tag }}
+          {{ form.quantity }}
+        </div>
+
+        <div class="form-group">
+          {{ form.description.label_tag }}
+          {{ form.description }}
+        </div>
   
         <button type="submit" class="btn btn-sm btn-primary btn-icon-split shadow-sm">
           <span class="icon text-white-50">
