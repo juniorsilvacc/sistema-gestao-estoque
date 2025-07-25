@@ -9,16 +9,57 @@
 <div class="container-fluid">
   <!-- Page Heading -->
   <h1 class="h3 mb-1 text-gray-800">Editar Produto</h1>
-  <p class="mb-4">
-    Altere os campos abaixo para atualizar o produto selecionado.
-    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Faça alterações dos dados."></i>
-  </p>
+  <p class="mb-4">Altere os campos abaixo para atualizar o produto selecionado.</p>
 
   <div class="card shadow mb-4">
     <div class="card-body">
       <form method="POST" action="{% url 'product_update' product.pk %}">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        <div class="form-group">
+          {{ form.title.label_tag }}
+          {{ form.title }}
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {{ form.category.label_tag }}
+            {{ form.category }}
+          </div>
+          <div class="form-group col-md-6">
+            {{ form.brand.label_tag }}
+            {{ form.brand }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="id_codigo_interno">Código Interno:</label>
+            <div class="input-group">
+              <input type="text" name="internal_code" id="id_codigo_interno" class="form-control" value="{{ form.internal_code.value }}" readonly>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            {{ form.serie_number.label_tag }}
+            {{ form.serie_number }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {{ form.cost_price.label_tag }}
+            {{ form.cost_price }}
+          </div>
+          <div class="form-group col-md-6">
+            {{ form.selling_price.label_tag }}
+            {{ form.selling_price }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.description.label_tag }}
+          {{ form.description }}
+        </div>
 
         <button type="submit" class="btn btn-sm btn-warning btn-icon-split shadow-sm">
           <span class="icon text-white-50">

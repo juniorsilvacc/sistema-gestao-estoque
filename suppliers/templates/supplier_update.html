@@ -2,23 +2,100 @@
 
 {% block title %} 
   SGE - Fornecedor 
-{% endblock %} 
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.padding-top-is-whatsapp {
+  margin-top: 36px;
+}
+</style>
+{% endblock %}
 
 {% block content %}
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
   <h1 class="h3 mb-1 text-gray-800">Editar Fornecedor</h1>
-  <p class="mb-4">
-    Altere os campos abaixo para atualizar o fornecedor selecionado.
-    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Altere o nome ou a descrição do fornecedor."></i>
-  </p>
+  <p class="mb-4">Altere os campos abaixo para atualizar o fornecedor selecionado.</p>
 
   <div class="card shadow mb-4">
     <div class="card-body">
       <form method="POST" action="{% url 'supplier_update' supplier.pk %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        
+        <div class="form-group">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+        </div>
+
+        <div class="form-group">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+        </div>
+
+        <div class="form-group">
+          {{ form.cnpj.label_tag }}
+          {{ form.cnpj }}
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            {{ form.phone.label_tag }}
+            {{ form.phone }}
+          </div>
+          <div class="form-group col-md-3">
+            {{ form.cellphone.label_tag }}
+            {{ form.cellphone }}
+          </div>
+          <div class="form-group col-md-3">
+            {{ form.is_whatsapp.label_tag }}
+            {{ form.is_whatsapp }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {{ form.cep.label_tag }}
+            {{ form.cep }}
+          </div>
+          <div class="form-group col-md-6">
+            {{ form.neighborhood.label_tag }}
+            {{ form.neighborhood }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {{ form.city.label_tag }}
+            {{ form.city }}
+          </div>
+          <div class="form-group col-md-6">
+            {{ form.state.label_tag }}
+            {{ form.state }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {{ form.street.label_tag }}
+            {{ form.street }}
+          </div>
+          <div class="form-group col-md-6">
+            {{ form.number.label_tag }}
+            {{ form.number }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.complement.label_tag }}
+          {{ form.complement }}
+        </div>
+
+        <div class="form-group">
+          {{ form.description.label_tag }}
+          {{ form.description }}
+        </div>
 
         <button type="submit" class="btn btn-sm btn-warning btn-icon-split shadow-sm">
           <span class="icon text-white-50">

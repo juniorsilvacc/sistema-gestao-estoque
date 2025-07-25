@@ -9,16 +9,22 @@
 <div class="container-fluid">
   <!-- Page Heading -->
   <h1 class="h3 mb-1 text-gray-800">Editar Categoria</h1>
-  <p class="mb-4">
-    Altere os campos abaixo para atualizar a categoria selecionada.
-    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Altere o nome ou a descrição da categoria."></i>
-  </p>
+  <p class="mb-4">Altere os campos abaixo para atualizar a categoria selecionada.</p>
 
   <div class="card shadow mb-4">
     <div class="card-body">
       <form method="POST" action="{% url 'category_update' category.pk %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        
+        <div class="form-group">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+        </div>
+
+        <div class="form-group">
+          {{ form.description.label_tag }}
+          {{ form.description }}
+        </div>
 
         <button type="submit" class="btn btn-sm btn-warning btn-icon-split shadow-sm">
           <span class="icon text-white-50">
