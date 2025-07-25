@@ -4,22 +4,59 @@
   SGE - Entrada
 {% endblock %} 
 
+{% block extra_css %}
+<style>
+.input-with-red-line input,
+.input-with-red-line select,
+.input-with-red-line textarea {
+  border-left: 4px solid red !important;
+  padding-left: 10px;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
   <h1 class="h3 mb-1 text-gray-800">Cadastrar Entrada</h1>
-  <p class="mb-4">
-    Preencha os campos abaixo para cadastrar uma nova entrada de produtos no sistema.
-    <i class="fas fa-info-circle text-info" data-toggle="tooltip" title="Essa entrada será exibida na listagem."></i>
-  </p>
+  <p class="mb-4">Preencha os campos abaixo para cadastrar uma nova entrada de produtos no sistema.</p>
 
   <div class="card shadow mb-4">
     <div class="card-body">
       <form method="post" action="{% url 'inflow_create' %}">
         {% csrf_token %}
         
-        {{ form.as_p }}
+        <div class="form-row">
+          <div class="form-group input-with-red-line col-md-6">
+            {{ form.supplier.label_tag }}
+            {{ form.supplier }}
+          </div>
+          <div class="form-group input-with-red-line col-md-6">
+            {{ form.product.label_tag }}
+            {{ form.product }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group input-with-red-line col-md-4">
+            {{ form.quantity.label_tag }}
+            {{ form.quantity }}
+          </div>
+          <div class="form-group col-md-4">
+            {{ form.purchase_price.label_tag }}
+            {{ form.purchase_price }}
+          </div>
+          <div class="form-group col-md-4">
+            {{ form.invoice_number.label_tag }}
+            {{ form.invoice_number }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.description.label_tag }}
+          {{ form.description }}
+        </div>
   
         <button type="submit" class="btn btn-sm btn-primary btn-icon-split shadow-sm">
           <span class="icon text-white-50">

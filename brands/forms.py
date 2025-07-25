@@ -9,8 +9,8 @@ class BrandForm(forms.ModelForm):
         fields = ['name', 'website', 'description']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'website': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3})
+            'website': forms.TextInput(attrs={'class': 'form-control', 'required': False}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'required': False})
         }
         labels = {
             'name': 'Nome',

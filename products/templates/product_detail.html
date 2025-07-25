@@ -16,53 +16,53 @@
       <h4 class="mb-4"><strong>Produto:</strong> {{ product.title }}</h4>
 
       <div class="row">
-        <div class="col-md-12 md-6">
+        <div class="col-md-12 mb-2">
           <label class="text-muted small mb-1">Nome</label>
           <div class="border rounded p-2 bg-light">{{ product.title }}</div>
         </div>
 
-        <div class="col-md-6 md-3">
+        <div class="col-md-6 mb-2">
           <label class="text-muted small mb-1">Categoria</label>
           <div class="border rounded p-2 bg-light">{{ product.category }}</div>
         </div>
 
-        <div class="col-md-6 md-3">
+        <div class="col-md-6 mb-2">
           <label class="text-muted small mb-1">Marca</label>
           <div class="border rounded p-2 bg-light">{{ product.brand }}</div>
         </div>
 
-        <div class="col-md-6 md-3">
+        <div class="col-md-6 mb-2">
           <label class="text-muted small mb-1">Código Interno</label>
           <div class="border rounded p-2 bg-light">{{ product.internal_code }}</div>
         </div>
 
-        <div class="col-md-6 md-3">
+        <div class="col-md-6 mb-2">
           <label class="text-muted small mb-1">Número de Série</label>
           <div class="border rounded p-2 bg-light">{{ product.serie_number|default:"-" }}</div>
         </div>
 
-        <div class="col-md-4 md-3">
+        <div class="col-md-4 mb-2">
           <label class="text-muted small mb-1">Preço de Custo</label>
           <div class="border rounded p-2 bg-light">{{ product.cost_price }}</div>
         </div>
 
-        <div class="col-md-4 md-3">
+        <div class="col-md-4 mb-2">
           <label class="text-muted small mb-1">Preço de Venda</label>
           <div class="border rounded p-2 bg-light">{{ product.selling_price }}</div>
         </div>
 
-        <div class="col-md-4 md-3">
+        <div class="col-md-4 mb-2">
           <label class="text-muted small mb-1">Estoque</label>
           <div class="border rounded p-2 bg-light">{{ product.quantity }}</div>
         </div>
 
-        <div class="col-md-12 md-6">
+        <div class="col-md-12 mb-2">
           <label class="text-muted small mb-1">Observações</label>
           <div class="border rounded p-2 bg-light">{{ product.description|default:"-" }}</div>
         </div>
       </div>
 
-      <a href="{% url 'product_list' %}" class="btn btn-sm btn-secondary mt-3">
+      <a href="{% url 'product_list' %}" class="btn btn-sm btn-secondary">
         <i class="fas fa-arrow-left"></i> Voltar
       </a>
     </div>
