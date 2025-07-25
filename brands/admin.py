@@ -3,7 +3,7 @@ from . import models
 
 
 class BrandAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description',)
+    list_display = ('name', 'website', 'description',)
     search_fields = ('name',)
 
 admin.site.register(models.Brand, BrandAdmin)

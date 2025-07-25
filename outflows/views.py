@@ -18,7 +18,7 @@ class OutflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         if product:
             queryset = queryset.filter(product__title__icontains=product)
         
-        return queryset.order_by('-id')
+        return queryset
 
 class OutflowCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Outflow

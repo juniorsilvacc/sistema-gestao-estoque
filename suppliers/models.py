@@ -49,7 +49,9 @@ class Supplier(models.Model):
     updated_at = models.DateField(auto_now=True)
 
     class Meta:
-        ordering = ['id']
+        verbose_name = "Fornecedor"
+        verbose_name_plural = "Fornecedores"
+        ordering = ['-created_at']
     
     def __str__(self):
         return self.name
