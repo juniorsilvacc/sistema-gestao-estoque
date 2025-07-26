@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from django.urls import reverse_lazy
 from pathlib import Path
 import os
 
@@ -56,7 +57,7 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 
 # Após o logou, redirecione para o login "login/"
-LOGOUT_REDIRECT_URL = 'login/'
+LOGOUT_REDIRECT_URL = reverse_lazy('login')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
