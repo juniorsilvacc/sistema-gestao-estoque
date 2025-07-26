@@ -8,5 +8,9 @@ urlpatterns = [
     path('products/<int:pk>/detail/', views.ProductDetailView.as_view(), name='product_detail'),
     path('products/<int:pk>/edit/', views.ProductUpdateView.as_view(), name='product_update'),
     path('products/<int:pk>/delete/', views.ProductDeleteView.as_view(), name='product_delete'),
+
+    path('report-exports/', views.ReportExportView.as_view(), name='report_exports'),
+    path('export-products-excel/', views.export_products_excel, name='exportar_produtos_excel'),
+    
     path('gerar-codigo/', views.gerar_codigo_view, name='gerar_codigo'),
 ]

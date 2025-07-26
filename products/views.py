@@ -1,12 +1,15 @@
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from . import models
 from . import forms
 from categories.models import Category
 from brands.models import Brand
+from products.models import Product
 from app import metrics
 import random
+import openpyxl
+from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from django.views.decorators.csrf import csrf_exempt
@@ -77,6 +80,46 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     model = models.Product
     success_url = reverse_lazy('product_list')
     permission_required = 'products.delete_product'
+
+class ReportExportView(LoginRequiredMixin, TemplateView):
+    template_name = 'report_export.html'
+    
+    # Enviando os dados de products para o template
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products'] = Product.objects.all().order_by('title')
+        return context
+
+def export_products_excel(request, ordem='asc'):
+    # No futuro, adicionar filtros no formulário da tela, tipo:
+    # Categoria, Marca, Ordenar por: Preço e Estoque
+    
+    order_by = 'title'
+    products = Product.objects.all().order_by(order_by)
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = 'Produtos'
+
+    headers = ['Código Interno', 'Nome', 'Categoria', 'Marca', 'Estoque', 'Número de Série', 'Preço de Custo', 'Preço de Venda']
+    ws.append(headers)
+
+    for product in products:
+        ws.append([
+            product.internal_code,
+            product.title,
+            product.category.name if product.category else '',
+            product.brand.name if product.brand else '',
+            product.quantity,
+            product.serie_number,
+            product.cost_price,
+            product.selling_price
+        ])
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = f'attachment; filename=relatorio-produtos.xlsx'
+    wb.save(response)
+    return response
 
 @require_GET
 @csrf_exempt

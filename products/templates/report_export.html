@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+  SGE - Relatórios 
+{% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-1 text-gray-800">Relatórios</h1>
+  <p class="mb-4">Visualize abaixo os seus relatórios.</p>
+
+  <div class="card shadow mb-4">
+    <div class="card-body d-flex align-items-center justify-content-between">
+
+      <div>
+        <h5 class="card-title mb-1">
+          <i class="fas fa-file-alt text-success mr-2"></i>
+          <a href="{% url 'exportar_produtos_excel' %}" class="text-gray-800 text-decoration-none">Relatório de Produtos</a>
+        </h5>
+        <small class="text-muted">Todos os produtos e saldo em estoque.</small>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
