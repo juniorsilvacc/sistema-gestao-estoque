@@ -18,6 +18,7 @@ def home(request):
     daily_sales_data = metrics.get_daily_sales_data()
     daily_sales_quantity_data = metrics.get_daily_sales_quantity_data()
     top_10_stock = metrics.get_top_10_stock_products()
+    critical_stock_products = metrics.get_critical_stock_products()
     top_5_sold = metrics.get_top_5_sold_products()
 
     ai_result_instance = APIResult.objects.first()
@@ -30,6 +31,7 @@ def home(request):
         'daily_sales_quantity_data': json.dumps(daily_sales_quantity_data),
         'top_10_stock': json.dumps(top_10_stock),
         'top_5_sold': json.dumps(top_5_sold),
+        'critical_stock_products': json.dumps(critical_stock_products),
         'ai_result': ai_result,
     }
 

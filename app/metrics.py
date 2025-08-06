@@ -44,8 +44,12 @@ def get_sales_metrics():
 
 
 def get_last_7_days():
+    """
+    Movimentações nos últimos 7 dias
+    """
     today = timezone.now().date()
     return [today - timedelta(days=i) for i in range(6, -1, -1)]
+
 
 def get_daily_sales_data():
     """
@@ -71,6 +75,7 @@ def get_daily_sales_data():
         'dates': labels,
         'values': values
     }
+
 
 def get_daily_sales_quantity_data():
     """
@@ -99,6 +104,17 @@ def get_top_10_stock_products():
     return {
         'labels': [p.title for p in top_products],
         'data': [p.quantity for p in top_products],
+    }
+  
+
+def get_critical_stock_products(min_stock=3):
+    """
+    Produtos com Estoque Crítico
+    """
+    critical_products = Product.objects.filter(quantity__lte=min_stock).order_by('quantity')
+    return {
+        'labels': [p.title for p in critical_products],
+        'data': [p.quantity for p in critical_products],
     }
 
 

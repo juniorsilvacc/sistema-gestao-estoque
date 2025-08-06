@@ -48,11 +48,9 @@
   {% if perms.products.view_product %}
   <div class="container-fluid mb-4">
     <div class="row">
-      
-
       <div class="col-md-6 text-center mt-4">
-        <h1 class="h5 mb-0 text-gray-800">Estoque Atual por Produto 🏷️</h1>
-        <canvas id="topStockChart"></canvas>
+        <h1 class="h5 mb-0 text-gray-800">Produtos com Estoque Crítico ⚠️</h1>
+        <canvas id="criticalStockChart"></canvas>
       </div>
 
       <div class="col-md-6 text-center mt-4">
@@ -62,14 +60,20 @@
     </div>
   </div>
   {% endif %}
+{% endblock %}
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const dailySalesData = JSON.parse('{{ daily_sales_data|safe }}')
-      const dailySalesQuantityData = JSON.parse('{{ daily_sales_quantity_data|safe }}')
-     
-      // Gráfico de valor de vendas
-      new Chart(document.getElementById('dailySalesChart').getContext('2d'), {
+
+{% block extra_js %} 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dailySalesData = JSON.parse('{{ daily_sales_data|safe }}');
+    const dailySalesQuantityData = JSON.parse('{{ daily_sales_quantity_data|safe }}');
+    const criticalStockData = JSON.parse('{{ critical_stock_products|escapejs }}');
+    const topSoldData = JSON.parse('{{ top_5_sold|safe }}');
+    
+    const ctx = document.getElementById('dailySalesChart');
+    if (ctx) {
+      new Chart(ctx, {
         type: 'line',
         data: {
           labels: dailySalesData.dates,
@@ -85,71 +89,88 @@
         options: {
           responsive: true,
           plugins: {
-            legend: {
-              position: 'top',
-            },
-            title: {
-              display: false
-            }
+            legend: { position: 'top' },
+            title: { display: false }
           }
         }
-      })
+      });
+    }
 
-      // Gráfico de quantidade de vendas
-      new Chart(document.getElementById('dailySalesQuantityChart').getContext('2d'), {
+    const ctx2 = document.getElementById('dailySalesQuantityChart');
+    if (ctx2) {
+      new Chart(ctx2, {
         type: 'bar',
         data: {
           labels: dailySalesQuantityData.dates,
           datasets: [{
             label: 'Quantidade de Produtos Vendidos',
             data: dailySalesQuantityData.values,
+            backgroundColor: 'rgba(28, 200, 138, 0.2)',
             borderColor: '#1cc88a',
-            backgroundColor: 'rgba(28, 200, 138, 0.1)',
-            tension: 0.4,
-            fill: true
+            borderWidth: 1
           }]
         },
         options: {
           responsive: true,
           plugins: {
-            legend: {
-              position: 'top',
-            },
-            title: {
-              display: false
-            }
+            legend: { position: 'top' },
+            title: { display: false }
           }
         }
-      })
-    })
+      });
+    }
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const stockData = JSON.parse('{{ top_10_stock|safe }}')
-      const soldData = JSON.parse('{{ top_5_sold|safe }}')
-
-      new Chart(document.getElementById('topStockChart'), {
+    const ctx3 = document.getElementById('criticalStockChart');
+    if (ctx3) {
+      new Chart(ctx3, {
         type: 'bar',
         data: {
-          labels: stockData.labels,
+          labels: criticalStockData.labels,
           datasets: [{
-            label: 'Estoque',
-            data: stockData.data,
-            backgroundColor: 'rgba(54, 162, 235, 0.7)'
+            label: 'Quantidade em Estoque',
+            data: criticalStockData.data,
+            backgroundColor: criticalStockData.data.map(qty => qty <= 2 ? 'rgba(255, 99, 132, 0.7)' : 'rgba(255, 206, 86, 0.7)'),
+            borderColor: criticalStockData.data.map(qty => qty <= 2 ? 'rgba(255, 99, 132, 1)' : 'rgba(255, 206, 86, 1)'),
+            borderWidth: 1
           }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'top' },
+            title: { display: false }
+          },
+          scales: {
+            y: { beginAtZero: true }
+          }
         }
-      })
+      });
+    }
 
-      new Chart(document.getElementById('topSoldChart'), {
+    const ctx4 = document.getElementById('topSoldChart');
+    if (ctx4) {
+      new Chart(ctx4, {
         type: 'bar',
         data: {
-          labels: soldData.labels,
+          labels: topSoldData.labels,
           datasets: [{
-            label: 'Vendidos',
-            data: soldData.data,
-            backgroundColor: 'rgba(255, 99, 132, 0.7)'
+            label: 'Mais Vendidos',
+            data: topSoldData.data,
+            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
           }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'top' },
+            title: { display: false }
+          }
         }
-      })
-    })
-  </script>
+      });
+    }
+  });
+</script>
 {% endblock %}
+ 
